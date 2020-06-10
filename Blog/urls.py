@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 #from posts import index, blog, post
-from ..posts.views import index, blog, post
+# from posts.views import index,views,post
+from posts.views import index, post, blog
 
 
 urlpatterns = [
