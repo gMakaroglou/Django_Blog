@@ -1,8 +1,25 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 # Create your models here.
 User = get_user_model()
+
+# class Blog(models.Model):
+#     timestamp
+#     title
+#     categories
+#     Author
+#     comment_count
+#     image
+
+
+class PostView(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
 
 class Author(models.Model):
@@ -32,6 +49,17 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={
+            'id': self.id
+        })
+
+    @property
+    def view_count(self):
+        return PostView.objects.filter(post=self).count()
+
+
 
 
 
