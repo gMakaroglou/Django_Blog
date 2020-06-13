@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'posts',
     'marketing',
+    'tinymce',
+    'ckeditor',
+    'django_summernote',
+
 
 ]
 
@@ -128,4 +132,52 @@ STATICFILES_DIRS = [
 ]
 VENV_PATH = os.path.dirname(BASE_DIR)
 STATIC_ROOT = os.path.join(VENV_PATH, 'static_root')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+MEDIA_ROOT = os.path.join(VENV_PATH, 'media_root')
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+#TINY MCE CONFIGURATION
+
+# TINYMCE_JS_URL = os.path.join(MEDIA_URL, "path/to/tiny_mce/tiny_mce.js")
+# TINYMCE_JS_ROOT = os.path.join(MEDIA_ROOT, "path/to/tiny_mce")
+# TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
+# TINYMCE_DEFAULT_CONFIG = {
+#     'plugins': "table,spellchecker,paste,searchreplace",
+#     'theme': "advanced",
+#     'cleanup_on_startup': True,
+#     'custom_undo_redo_levels': 10,
+# }
+# TINYMCE_SPELLCHECKER = True
+# TINYMCE_COMPRESSOR = True
+
+#tiny mce config
+
+TINYMCE_DEFAULT_CONFIG = {
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            fullscreen preview bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'toolbar2': '''
+            visualblocks visualchars |
+            charmap hr pagebreak nonbreaking anchor |  code |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+}
+
+
+# TINYMCE_JS_URL = os.path.join(STATIC_URL, "js/tinymce/tinymce.min.js")
+# TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "js/tinymce")

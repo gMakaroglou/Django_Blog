@@ -26,6 +26,12 @@ def blog(request):
     page_request_var = 'page'
     page = request.GET.get(page_request_var)
     latest = Post.objects.order_by('-timestamp')[0:3]
+    print(test_count())
+    print(test_count().query)
+    print(test_countt())
+    print(test_countt().query)
+    print(test_counttt())
+    print(test_counttt().query)
     try:
         paginated_queryset = paginator.page(page)
     except PageNotAnInteger:
@@ -49,6 +55,24 @@ def get_category_count():
     return queryset
 
 
+def test_count():
+    queryset = Post \
+        .objects \
+        .values('categories')
+    return queryset
+def test_countt():
+    queryset = Post \
+        .objects \
+        .values('categories__title')
+    return queryset
+def test_counttt():
+    queryset = Post \
+        .objects \
+        .values('categories__title')\
+        .annotate(Count('categories'))
+    return queryset
+
+
 def post(request, id):
     return render(request, 'post.html', {})
 
@@ -62,6 +86,6 @@ def search(request):
             Q(overview__icontains=query)
         ).distinct()
         context = {
-            'queryset' : queryset
+            'queryset': queryset
         }
         return render(request, 'search.html', context)

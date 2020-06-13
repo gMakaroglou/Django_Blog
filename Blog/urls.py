@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 #from posts import index, blog, post
 # from posts.views import index,views,post
 from posts.views import index, post, blog, search
+from django.urls import include
 
 
 urlpatterns = [
@@ -27,7 +28,9 @@ urlpatterns = [
     path('', index),
     path('blog/', blog, name='post-list'),
     path('post/<id>/', post, name='post-detail'),
-    path('search/', search, name='search')
+    path('search/', search, name='search'),
+    path('tinymce/', include('tinymce.urls')),
+    path('summernote/', include('django_summernote.urls')),
 ]
 
 if settings.DEBUG:
